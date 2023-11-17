@@ -16,8 +16,11 @@ class Bateau:
     def get_taille(self):
         return self.taille
 
-    def get_touche(self):
-        return self.touche
+    def est_touche(self, x, y):
+       if self.horizontal:
+           return self.x <= x < self.x + self.taille and self.y == y
+       else:
+           return self.x == x and self.y <= y < self.y + self.taille
 
     def get_horizontal(self):
         return self.horizontal

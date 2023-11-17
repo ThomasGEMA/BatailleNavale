@@ -27,3 +27,8 @@ class Bateau:
 
     def est_coule(self):
         return all(self.elements)
+
+
+    def avancee(self, a, b):
+        self.x +=a
+        self.y +=b

@@ -1,0 +1,29 @@
+Index: Bataille.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from Bateau import Bateau\r\n\r\n\r\nclass Bataille:\r\n    def __init__(self):\r\n        self.grille = [[0 for _ in range(10)] for _ in range(10)]\r\n        self.bateaux = [\r\n            Bateau(taille=2),\r\n            Bateau(taille=3),\r\n            Bateau(taille=4),\r\n            Bateau(taille=5),\r\n        ]\r\n\r\n    def afficher_grille(self):\r\n        grille = [[0 for _ in range(10)] for _ in range(10)]\r\n\r\n        # Créer des étiquettes pour les colonnes et les lignes\r\n        colonnes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']\r\n        lignes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']\r\n\r\n        # Afficher les étiquettes des colonnes\r\n        print(' ', end='')\r\n        for c in colonnes:\r\n            print(' ' + str(c), end='')\r\n        print()\r\n\r\n        # Afficher la grille avec les étiquettes des lignes\r\n        for i in range(len(grille)):\r\n            print(str(lignes[i]), end='')\r\n            for elt in grille[i]:\r\n                print(' ' + str(elt), end='')\r\n            print()\r\n\r\n\r\n    def placer_bateaux(self):\r\n        for bateau in self.bateaux:\r\n            while True:\r\n                x = int(input(f\"Entrez la coordonnée X du {bateau.get_taille()}-bateau : \"))\r\n                y = int(input(f\"Entrez la coordonnée Y du {bateau.get_taille()}-bateau : \"))\r\n                horizontal = input(\"Le bateau est-il horizontal ? (o/n) \").lower() == 'o'\r\n\r\n                bateau.avancee(x - bateau.get_x(), y - bateau.get_y())\r\n                bateau.horizontal = horizontal\r\n\r\n                if self.peut_placer_bateau(bateau):\r\n                    self.placer_bateau_sur_grille(bateau)\r\n                    break\r\n                else:\r\n                    print(\"Impossible de placer le bateau à cet endroit. Réessayez.\")\r\n    def peut_placer_bateau(self, bateau):\r\n        if bateau.horizontal:\r\n            return (\r\n                bateau.get_x() + bateau.get_taille() <= 10\r\n                and all(\r\n                    self.grille[bateau.get_y() - 1][x - 1] == 0\r\n                    for x in range(bateau.get_x(), bateau.get_x() + bateau.get_taille())\r\n                )\r\n            )\r\n        else:\r\n            return (\r\n                bateau.get_y() + bateau.get_taille() <= 10\r\n                and all(\r\n                    self.grille[y - 1][bateau.get_x() - 1] == 0\r\n                    for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille())\r\n                )\r\n            )\r\n\r\n    def placer_bateau_sur_grille(self, bateau):\r\n        if bateau.horizontal:\r\n            for x in range(bateau.get_x(), bateau.get_x() + bateau.get_taille()):\r\n                self.grille[bateau.get_y() - 1][x - 1] = 1\r\n        else:\r\n            for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille()):\r\n                self.grille[y - 1][bateau.get_x() - 1] = 1\r\n\r\ncl = Bataille()\r\ncl.__init__()\r\ncl.afficher_grille()\r\ncl.placer_bateaux()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Bataille.py b/Bataille.py
+--- a/Bataille.py	(revision 82195627863759213ad1748fbab258ddc1c29369)
++++ b/Bataille.py	(date 1700235740555)
+@@ -73,6 +73,18 @@
+             for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille()):
+                 self.grille[y - 1][bateau.get_x() - 1] = 1
+ 
++
++#fonction jouer
++def jouer(self):
++    coordonnee_x = int(input("Entrez la coordonnée X de votre touche : "))
++    coordonnee_y = int(input("Entrez la coordonnée Y de votre touche : "))
++    touche = False
++    for bateau in self.bateaux:
++        if bateau.est_touche(coordonnee_x, coordonnee_y):
++            touche =True
++
++
++
+ cl = Bataille()
+ cl.__init__()
+ cl.afficher_grille()

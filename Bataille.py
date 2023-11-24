@@ -60,6 +60,26 @@ class Bataille:
                    print(' ' + str(elt), end='')
            print()
 
+    def afficher_grille(self):
+        # Créer des étiquettes pour les colonnes et les lignes
+        colonnes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+        lignes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+
+        # Afficher les étiquettes des colonnes
+        print(' ', end='')
+        for c in colonnes:
+            print(' ' + str(c), end='')
+        print()
+
+        # Afficher la grille avec les étiquettes des lignes
+        for i, e in enumerate(self.grille1):  # toutes les lignes
+            print(lignes[i], end='')
+            for elt in e:  # toutes les cases de la ligne courante
+                if elt == 1:
+                    print(' ' + 'X', end='')
+                else:
+                    print(' ' + str(elt), end='')
+            print()
 
     def placer_bateaux(self):
         for bateau in self.bateaux1:
@@ -83,19 +103,19 @@ class Bataille:
     def peut_placer_bateau(self, bateau):
         if bateau.horizontal:
             return (
-                bateau.get_x() + bateau.get_taille() <= 10
-                and all(
-                    self.grille1[bateau.get_y() - 1][x - 1] == 0
-                    for x in range(bateau.get_x(), bateau.get_x() + bateau.get_taille())
-                )
+                    bateau.get_x() + bateau.get_taille() <= 10
+                    and all(
+                self.grille1[bateau.get_y() - 1][x - 1] == 0
+                for x in range(bateau.get_x(), bateau.get_x() + bateau.get_taille())
+            )
             )
         else:
             return (
-                bateau.get_y() + bateau.get_taille() <= 10
-                and all(
-                    self.grille[y - 1][bateau.get_x() - 1] == 0
-                    for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille())
-                )
+                    bateau.get_y() + bateau.get_taille() <= 10
+                    and all(
+                self.grille1[y - 1][bateau.get_x() - 1] == 0
+                for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille())
+            )
             )
 
     def placer_bateau_sur_grille(self, bateau):
@@ -151,11 +171,21 @@ class Bataille:
            for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille()):
                self.grille2[y - 1][bateau.get_x() - 1] = 1
 
+
 if __name__ == '__main__':
- cl = Bataille()
- cl.__init__()
- cl.afficher_grille1()
- cl.placer_bateaux()
- cl.afficher_grille1()
- cl.placer_bateaux_pour_joueur2()
- cl.afficher_grille2()
+    #try .... except pour gérer l'erreur KeyboardInterrupt()
+    try:
+        cl = Bataille()
+        cl.__init__()
+        cl.afficher_grille()
+        cl.placer_bateaux()
+        cl.afficher_grille()
+        cl.afficher_grille1()
+        cl.placer_bateaux_pour_joueur2()
+        cl.afficher_grille2()
+        print("Try using KeyboardInterrupt")
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt exception is caught")
+    else:
+        print("No exceptions are caught")
+

@@ -3,8 +3,15 @@ from Bateau import Bateau
 
 class Bataille:
     def __init__(self):
-        self.grille = [[0 for _ in range(10)] for _ in range(10)]
-        self.bateaux = [
+        self.grille1 = [[0 for _ in range(10)] for _ in range(10)]
+        self.grille2 = [[0 for _ in range(10)] for _ in range(10)]
+        self.bateaux1 = [
+            Bateau(taille=2),
+            Bateau(taille=3),
+            Bateau(taille=4),
+            Bateau(taille=5),
+        ]
+        self.bateaux2 = [
             Bateau(taille=2),
             Bateau(taille=3),
             Bateau(taille=4),
@@ -12,7 +19,7 @@ class Bataille:
         ]
 
     def afficher_grille(self):
-        grille = [[0 for _ in range(10)] for _ in range(10)]
+        #grille = [[0 for _ in range(10)] for _ in range(10)]
 
         # Créer des étiquettes pour les colonnes et les lignes
         colonnes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -25,15 +32,15 @@ class Bataille:
         print()
 
         # Afficher la grille avec les étiquettes des lignes
-        for i in range(len(grille)):
-            print(str(lignes[i]), end='')
-            for elt in grille[i]:
+        for i,e in enumerate(self.grille1) : # toutes les lignes
+            print(lignes[i], end='')
+            for elt in e:   # toutes les cases de la ligne courange
                 print(' ' + str(elt), end='')
             print()
 
 
     def placer_bateaux(self):
-        for bateau in self.bateaux:
+        for bateau in self.bateaux1:
             while True:
                 x = int(input(f"Entrez la coordonnée X du {bateau.get_taille()}-bateau : "))
                 y = int(input(f"Entrez la coordonnée Y du {bateau.get_taille()}-bateau : "))
@@ -68,12 +75,13 @@ class Bataille:
     def placer_bateau_sur_grille(self, bateau):
         if bateau.horizontal:
             for x in range(bateau.get_x(), bateau.get_x() + bateau.get_taille()):
-                self.grille[bateau.get_y() - 1][x - 1] = 1
+                self.grille1[bateau.get_y() - 1][x - 1] = 1
         else:
             for y in range(bateau.get_y(), bateau.get_y() + bateau.get_taille()):
-                self.grille[y - 1][bateau.get_x() - 1] = 1
+                self.grille1[y - 1][bateau.get_x() - 1] = 1
 
-cl = Bataille()
-cl.__init__()
-cl.afficher_grille()
-cl.placer_bateaux()
+if __name__ == '__main__':
+    cl = Bataille()
+    cl.__init__()
+    cl.afficher_grille()
+    cl.placer_bateaux()

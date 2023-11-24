@@ -151,6 +151,29 @@ class Bataille:
                self.grille2[y - 1][bateau.get_x() - 1] = 1
 
 
+    def jouer(self, joueur, grille):
+      try:
+          x = int(input(f"Joueur {joueur}, entrez la coordonnée X : "))
+          y = int(input(f"Joueur {joueur}, entrez la coordonnée Y : "))
+
+          if grille[y - 1][x - 1] == 1:
+              print("Touché !")
+              grille[y - 1][x - 1] = '*'
+          else:
+              print("Loupé !")
+              grille[y - 1][x - 1] = 'L'
+
+      except ValueError:
+          print("Veuillez entrer un nombre valide pour la coordonnée X et Y.")
+
+    def bateau_coulé(self, grille):
+      for i in range(len(grille)):
+          for j in range(len(grille[i])):
+              if grille[i][j] == 1:
+                  return False
+      return True
+
+
 if __name__ == '__main__':
     #try .... except pour gérer l'erreur KeyboardInterrupt()
     try:
@@ -160,6 +183,25 @@ if __name__ == '__main__':
         cl.afficher_grille1()
         cl.placer_bateaux_pour_joueur2()
         cl.afficher_grille2()
+
+        joueur_courant = 1
+        while True:
+            if joueur_courant == 1:
+                cl.jouer(joueur_courant, cl.grille1)
+                cl.afficher_grille1()
+                joueur_courant = 2
+            else:
+                cl.jouer(joueur_courant, cl.grille2)
+                cl.afficher_grille2()
+                joueur_courant = 1
+
+            if cl.bateau_coulé(cl.grille1):
+                print("Le joueur 1 a coulé tous ses bateaux. Le joueur 2 gagne !")
+                break
+            elif cl.bateau_coulé(cl.grille2):
+                print("Le joueur 2 a coulé tous ses bateaux. Le joueur 1 gagne !")
+                break
+
         print("Try using KeyboardInterrupt")
     except KeyboardInterrupt:
         print("KeyboardInterrupt exception is caught")

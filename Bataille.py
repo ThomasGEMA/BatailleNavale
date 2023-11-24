@@ -60,27 +60,6 @@ class Bataille:
                    print(' ' + str(elt), end='')
            print()
 
-    def afficher_grille(self):
-        # Créer des étiquettes pour les colonnes et les lignes
-        colonnes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-        lignes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-
-        # Afficher les étiquettes des colonnes
-        print(' ', end='')
-        for c in colonnes:
-            print(' ' + str(c), end='')
-        print()
-
-        # Afficher la grille avec les étiquettes des lignes
-        for i, e in enumerate(self.grille1):  # toutes les lignes
-            print(lignes[i], end='')
-            for elt in e:  # toutes les cases de la ligne courante
-                if elt == 1:
-                    print(' ' + 'X', end='')
-                else:
-                    print(' ' + str(elt), end='')
-            print()
-
     def placer_bateaux(self):
         for bateau in self.bateaux1:
             while True:
@@ -177,9 +156,7 @@ if __name__ == '__main__':
     try:
         cl = Bataille()
         cl.__init__()
-        cl.afficher_grille()
         cl.placer_bateaux()
-        cl.afficher_grille()
         cl.afficher_grille1()
         cl.placer_bateaux_pour_joueur2()
         cl.afficher_grille2()
